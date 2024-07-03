@@ -5,12 +5,15 @@ import com.octotech.controle.UsuarioDAO;
 import com.octotech.controle.GerenciadorSessao;
 import com.octotech.modelo.*;
 
+import java.util.Scanner;
+
 public class Main {
+    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         int opcao = 0;
         while (opcao != 3) {
             menu();
-            opcao = Integer.parseInt(System.console().readLine());
+            opcao = Integer.parseInt(scanner.nextLine());
             switch (opcao) {
                 case 1 -> logar();
                 case 2 -> cadastrar();
@@ -30,9 +33,9 @@ public class Main {
 
     public static void logar() {
         System.out.print("Digite seu CPF/CNPJ: ");
-        String cpfCnpj = System.console().readLine();
+        String cpfCnpj = scanner.nextLine();
         System.out.print("Digite sua senha: ");
-        String senha = System.console().readLine();
+        String senha = scanner.nextLine();
         Usuario usuario = UsuarioDAO.getInstancia().logar(cpfCnpj, senha);
         if (usuario != null) {
             GerenciadorSessao.getInstancia().setUsuarioLogado(usuario);
@@ -50,16 +53,16 @@ public class Main {
 
     public static void cadastrar() {
         System.out.print("Digite seu nome: ");
-        String nome = System.console().readLine();
+        String nome = scanner.nextLine();
         System.out.print("Digite seu CPF/CNPJ: ");
-        String cpfCnpj = System.console().readLine();
+        String cpfCnpj = scanner.nextLine();
         System.out.print("Digite sua senha: ");
-        String senha = System.console().readLine();
+        String senha = scanner.nextLine();
         System.out.println("Você é um desenvolvedor ou uma empresa?");
         System.out.println("1 - Desenvolvedor");
         System.out.println("2 - Empresa");
         System.out.print("Escolha uma opção: ");
-        int opcao = Integer.parseInt(System.console().readLine());
+        int opcao = Integer.parseInt(scanner.nextLine());
         switch (opcao) {
             case 1 -> cadastrarDesenvolvedor(nome, cpfCnpj, senha);
             case 2 -> cadastrarEmpresa(nome, cpfCnpj, senha);
@@ -95,7 +98,7 @@ public class Main {
             System.out.println("3 - Aplicar para projeto");
             System.out.println("4 - Sair");
             System.out.print("Escolha uma opção: ");
-            opcao = Integer.parseInt(System.console().readLine());
+            opcao = Integer.parseInt(scanner.nextLine());
             Desenvolvedor desenvolvedor = (Desenvolvedor) GerenciadorSessao.getInstancia().getUsuarioLogado();
             switch (opcao) {
                 case 1 -> listarProjetos();
@@ -110,7 +113,7 @@ public class Main {
     private static void aplicarParaProjeto(Desenvolvedor desenvolvedor) {
         listarProjetos();
         System.out.print("Digite o ID do projeto que deseja aplicar: ");
-        int id = Integer.parseInt(System.console().readLine());
+        int id = Integer.parseInt(scanner.nextLine());
         Projeto projeto = ProjetoDAO.getInstancia().buscarPorId(id);
         if (projeto != null) {
             if (projeto.getStatus() != StatusProjeto.ABERTO) {
@@ -147,7 +150,7 @@ public class Main {
             System.out.println("4 - Encerrar projeto");
             System.out.println("5 - Sair");
             System.out.print("Escolha uma opção: ");
-            opcao = Integer.parseInt(System.console().readLine());
+            opcao = Integer.parseInt(scanner.nextLine());
             Empresa empresa = (Empresa) GerenciadorSessao.getInstancia().getUsuarioLogado();
             switch (opcao) {
                 case 1 -> listarProjetosEmpresa(empresa);
@@ -163,7 +166,7 @@ public class Main {
     private static void encerrarProjeto(Empresa empresa) {
         listarProjetosEmpresa(empresa);
         System.out.print("Digite o ID do projeto que deseja encerrar: ");
-        int id = Integer.parseInt(System.console().readLine());
+        int id = Integer.parseInt(scanner.nextLine());
         Projeto projeto = ProjetoDAO.getInstancia().buscarPorId(id);
         if (projeto == null) {
             System.out.println("Projeto não encontrado!");
@@ -187,7 +190,7 @@ public class Main {
     private static void iniciarProjeto(Empresa empresa) {
         listarProjetosEmpresa(empresa);
         System.out.print("Digite o ID do projeto que deseja iniciar: ");
-        int id = Integer.parseInt(System.console().readLine());
+        int id = Integer.parseInt(scanner.nextLine());
         Projeto projeto = ProjetoDAO.getInstancia().buscarPorId(id);
         if (projeto == null) {
             System.out.println("Projeto não encontrado!");
@@ -202,7 +205,7 @@ public class Main {
             System.out.println(desenvolvedor);
         }
         System.out.print("Digite o ID do desenvolvedor: ");
-        int idDesenvolvedor = Integer.parseInt(System.console().readLine());
+        int idDesenvolvedor = Integer.parseInt(scanner.nextLine());
         Desenvolvedor desenvolvedor = UsuarioDAO.getInstancia().buscarDesenvolvedorPorId(idDesenvolvedor);
         if (desenvolvedor == null) {
             System.out.println("Desenvolvedor não encontrado!");
@@ -217,9 +220,9 @@ public class Main {
 
     private static void postarNovoProjeto(Empresa empresa) {
         System.out.print("Digite o título do projeto: ");
-        String titulo = System.console().readLine();
+        String titulo = scanner.nextLine();
         System.out.print("Digite a descrição do projeto: ");
-        String descricao = System.console().readLine();
+        String descricao = scanner.nextLine();
         Projeto projeto = new Projeto(titulo, descricao, empresa);
         ProjetoDAO.getInstancia().cadastrar(projeto);
         System.out.println("Projeto postado com sucesso!");
