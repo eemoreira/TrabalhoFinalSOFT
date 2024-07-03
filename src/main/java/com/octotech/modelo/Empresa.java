@@ -6,8 +6,9 @@ public class Empresa extends Usuario {
     private String cnpj;
     private List<Projeto> projetos;
 
-    public void publicarProjeto() {
-        System.out.println("Projeto publicado por " + nome);
+    public Empresa(String nome, String cnpj, String senha) {
+        super(nome, senha);
+        this.cnpj = cnpj;
     }
 
     public String getCnpj() {

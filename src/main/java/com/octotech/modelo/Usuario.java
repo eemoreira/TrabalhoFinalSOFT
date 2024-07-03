@@ -3,18 +3,12 @@ package com.octotech.modelo;
 public abstract class Usuario {
     protected int id;
     protected String nome;
-    protected String email;
     protected String senha;
-    protected double saldo;
 
-    public void login() {
-        System.out.println("Usuário logado: " + email);
+    public Usuario(String nome, String senha) {
+        this.nome = nome;
+        this.senha = senha;
     }
-
-    public void logout() {
-        System.out.println("Usuário deslogado: " + email);
-    }
-
 
     public int getId() {
         return id;
@@ -32,14 +26,6 @@ public abstract class Usuario {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -48,11 +34,11 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public String getCpfCnpj() {
+        if (this instanceof Desenvolvedor) {
+            return ((Desenvolvedor) this).getCpf();
+        } else {
+            return ((Empresa) this).getCnpj();
+        }
     }
 }

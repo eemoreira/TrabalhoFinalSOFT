@@ -1,16 +1,27 @@
 package com.octotech.modelo;
 
+import jdk.jshell.Snippet;
+
+import java.util.ArrayList;
 import java.util.Date;
+
 
 public class Projeto {
     private int id;
     private String titulo;
+    private StatusProjeto status;
     private String descricao;
-    private double orcamento;
-    private Date prazo;
+    private Empresa empresa;
+    private Desenvolvedor desenvolvedor;
+    private ArrayList<Desenvolvedor> candidatos;
 
-    public void atualizarStatus() {
-        System.out.println("Status do projeto atualizado.");
+    public Projeto(String titulo, String descricao, Empresa empresa) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.empresa = empresa;
+        this.status = StatusProjeto.ABERTO;
+        this.desenvolvedor = null;
+        this.candidatos = new ArrayList<>();
     }
 
     public int getId() {
@@ -29,6 +40,14 @@ public class Projeto {
         this.titulo = titulo;
     }
 
+    public StatusProjeto getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusProjeto status) {
+        this.status = status;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -37,19 +56,31 @@ public class Projeto {
         this.descricao = descricao;
     }
 
-    public double getOrcamento() {
-        return orcamento;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public void setOrcamento(double orcamento) {
-        this.orcamento = orcamento;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
-    public Date getPrazo() {
-        return prazo;
+    public Desenvolvedor getDesenvolvedor() {
+        return desenvolvedor;
     }
 
-    public void setPrazo(Date prazo) {
-        this.prazo = prazo;
+    public void setDesenvolvedor(Desenvolvedor desenvolvedor) {
+        this.desenvolvedor = desenvolvedor;
+    }
+
+    public String toString() {
+        return "ID: " + id + " - Título: " + titulo + " - Status: " + status;
+    }
+
+    public void addCandidato(Desenvolvedor desenvolvedor) {
+        candidatos.add(desenvolvedor);
+    }
+
+    public ArrayList<Desenvolvedor> getCandidatos() {
+        return candidatos;
     }
 }

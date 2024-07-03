@@ -1,27 +1,24 @@
 package com.octotech.modelo;
 
 public class Desenvolvedor extends Usuario {
-    private String[] skills;
-    private String portfolio;
+    private String cpf;
 
-    public void proporProjeto() {
-        System.out.println("Proposta enviada por " + nome);
+    public Desenvolvedor(String nome, String cpf, String senha) {
+        super(nome, senha);
+        this.cpf = cpf;
     }
 
-    public String[] getSkills() {
-        return skills;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setSkills(String[] skills) {
-        this.skills = skills;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getPortfolio() {
-        return portfolio;
+    public String toString() {
+        return "ID: " + super.id + " - Nome: " + super.nome + " - CPF: " + cpf;
     }
 
-    public void setPortfolio(String portfolio) {
-        this.portfolio = portfolio;
-    }
 }
 
